@@ -1,30 +1,37 @@
 <template>
   <div class="post">
     <div class="post-header">
-      <div class="profile" :style="{backgroundImage : `url(${instarData.userImage})`}"></div>
-      <span class="profile-name">{{instarData.name}}</span>
+      <div
+        class="profile"
+        :style="{ backgroundImage: `url(${instarData.userImage})` }"
+      ></div>
+      <span class="profile-name">{{ instarData.name }}</span>
     </div>
-    <div class="post-body" :style="{backgroundImage : `url(${instarData.postImage})`}"></div>
+    <div
+      :class="instarData.filter"
+      class="post-body"
+      :style="{ backgroundImage: `url(${instarData.postImage})` }"
+    ></div>
     <div class="post-content">
-      <p>{{instarData.likes}}</p>
-      <p><strong>{{instarData.name}}</strong> {{instarData.content}}</p>
-      <p class="date">{{instarData.date}}</p>
+      <p>{{ instarData.likes }}</p>
+      <p>
+        <strong>{{ instarData.name }}</strong> {{ instarData.content }}
+      </p>
+      <p class="date">{{ instarData.date }}</p>
     </div>
-</div>
+  </div>
 </template>
 
 <script>
-
 export default {
-    
-    props : {
-        instarData : Object,
-    },
-}
+  props: {
+    instarData: Object,
+  },
+};
 </script>
 
 <style>
-    .post {
+.post {
   width: 100%;
 }
 .profile {
@@ -61,5 +68,5 @@ export default {
   font-size: 11px;
   color: grey;
   margin-top: -8px;
-} 
+}
 </style>

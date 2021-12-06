@@ -1,42 +1,90 @@
 <template>
   <div class="header">
     <ul class="header-button-left">
-      <li>Cancel</li>
+      <li @click="step--">Cancel</li>
     </ul>
     <ul class="header-button-right">
-      <li>Next</li>
+      <li v-if="step == 1" @click="step++">Next</li>
+      <li v-if="step == 2" @click="publish">발행</li>
     </ul>
-    <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container :instarData="instarData" />
+  <Container
+    @write="wrote = $event"
+    :photos="photos"
+    :instarData="instarData"
+    :step="step"
+  />
+  <button @click="more">더보기</button>
 
   <div class="footer">
     <ul class="footer-button-plus">
-      <input type="file" id="file" class="inputfile" />
+      <input @change="upload" type="file" id="file" class="inputfile" />
       <label for="file" class="input-plus">+</label>
     </ul>
   </div>
 </template>
 
 <script>
-import Container from './components/Container.vue';
-import instarData from './assets/instarData.js';
+import Container from "./components/Container.vue";
+import instarData from "./assets/instarData.js";
+import axios from "axios";
+
 export default {
   name: "App",
   data() {
     return {
-      instarData : instarData,
-    }
+      instarData: instarData,
+      moresome: 0,
+      step: 0,
+      photos: "",
+      wrote: "",
+    };
+  },
+  mounted() {
+    this.emitter.on("", (a) => {
+      console.log(a);
+    });
   },
   components: {
-    Container
+    Container,
+  },
+  methods: {
+    more() {
+      axios
+        .get(`https://codingapple1.github.io/vue/more${this.moresome}.json`)
+        .then((result) => {
+          this.instarData.push(result.data);
+          this.moresome++;
+        });
+    },
+    upload(e) {
+      let file = e.target.files;
+      console.log(file);
+      let url = URL.createObjectURL(file[0]);
+      console.log(url);
+      this.photos = url;
+      this.step++;
+    },
+    publish() {
+      var myInstar = {
+        name: "Kim Hyun",
+        userImage: "https://placeimg.com/100/100/arch",
+        postImage: this.photos,
+        likes: 36,
+        date: "May 15",
+        liked: false,
+        content: this.wrote,
+        filter: "perpetua",
+      };
+      this.instarData.unshift(myInstar);
+      this.step = 0;
+    },
   },
 };
 </script>
 
 <style>
-
 body {
   margin: 0;
 }
