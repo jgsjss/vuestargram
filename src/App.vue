@@ -39,10 +39,12 @@ export default {
       step: 0,
       photos: "",
       wrote: "",
+      clickFilter: "",
     };
   },
   mounted() {
-    this.emitter.on("", (a) => {
+    this.emitter.on("clickBox", (a) => {
+      this.clickFilter = a;
       console.log(a);
     });
   },
@@ -75,7 +77,7 @@ export default {
         date: "May 15",
         liked: false,
         content: this.wrote,
-        filter: "perpetua",
+        filter: this.clickFilter,
       };
       this.instarData.unshift(myInstar);
       this.step = 0;

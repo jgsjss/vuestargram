@@ -5,7 +5,11 @@
 
   <!-- 필터선택페이지 -->
   <div v-if="step == 1">
-    <div class="upload-image" :style="`background-image: url(${photos})`"></div>
+    <div
+      :class="clickFilter"
+      class="upload-image"
+      :style="`background-image: url(${photos})`"
+    ></div>
     <div class="filters">
       <FilterBox
         :filter="filter"
@@ -20,7 +24,11 @@
 
   <!-- 글작성페이지 -->
   <div v-if="step == 2">
-    <div class="upload-image" :style="`background-image: url(${photos})`"></div>
+    <div
+      :class="clickFilter"
+      class="upload-image"
+      :style="`background-image: url(${photos})`"
+    ></div>
     <div class="write">
       <textarea @input="$emit('write', $event.target.value)" class="write-box">
 write!</textarea
@@ -66,6 +74,11 @@ export default {
       ],
       clickFilter: "",
     };
+  },
+  mounted() {
+    this.emitter.on("clickBox", (a) => {
+      this.clickFilter = a;
+    });
   },
   props: {
     instarData: Array,
