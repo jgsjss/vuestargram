@@ -9,13 +9,22 @@
     </ul>
   </div>
 
+  <h4>안녕 {{ name }}</h4>
+  <h4>내 나이는 {{ $store.state.age }}</h4>
+  <button @click="$store.commit('changeName')">변경</button>
+  <button @click="$store.commit('sumAge')">나이먹기</button>
+
   <Container
     @write="wrote = $event"
     :photos="photos"
     :instarData="instarData"
     :step="step"
   />
-  <button @click="more">더보기</button>
+  <p>{{ $store.state.more }}</p>
+  <button @click="$store.dispatch('getData')">더보기</button>
+
+  <p>{{ now() }}</p>
+  <button @click="counter++">현재시각</button>
 
   <div class="footer">
     <ul class="footer-button-plus">
@@ -29,6 +38,7 @@
 import Container from "./components/Container.vue";
 import instarData from "./assets/instarData.js";
 import axios from "axios";
+import { mapMutations, mapState } from "vuex";
 
 export default {
   name: "App",
@@ -40,6 +50,7 @@ export default {
       photos: "",
       wrote: "",
       clickFilter: "",
+      counter: 0,
     };
   },
   mounted() {
@@ -51,7 +62,14 @@ export default {
   components: {
     Container,
   },
+  computed: {
+    ...mapState(["name", "age", "likes"]),
+  },
   methods: {
+    ...mapMutations(["setMore", "좋아요"]),
+    now() {
+      return new Date();
+    },
     more() {
       axios
         .get(`https://codingapple1.github.io/vue/more${this.moresome}.json`)

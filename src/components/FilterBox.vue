@@ -3,9 +3,7 @@
     @click="fire"
     :class="filter + ' filter-item'"
     :style="`background-image:url(${photos})`"
-  >
-    <slot></slot>
-  </div>
+  ></div>
 </template>
 
 <script>
