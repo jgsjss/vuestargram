@@ -12,7 +12,7 @@
   <h4>안녕 {{ name }}</h4>
   <h4>내 나이는 {{ $store.state.age }}</h4>
   <button @click="$store.commit('changeName')">변경</button>
-  <button @click="$store.commit('sumAge')">나이먹기</button>
+  <button @click="sumAge()">나이먹기</button>
 
   <Container
     @write="wrote = $event"
@@ -66,7 +66,7 @@ export default {
     ...mapState(["name", "age", "likes"]),
   },
   methods: {
-    ...mapMutations(["setMore", "좋아요"]),
+    ...mapMutations(["setMore", "likesUp", "sumAge"]),
     now() {
       return new Date();
     },
