@@ -4,15 +4,28 @@
     <input placeholder="🔍" />
     <div class="post-header">
       <div class="profile"></div>
-      <span class="profile-name">사용자명</span>
+      <span class="profile-name">{{follower}}</span>
     </div>
   </div>
 </template>
 
 <script>
-// import { ref } from "vue";
+import { onMounted, ref } from "vue";
+import axios from 'axios';
 export default {
-  setup() {},
+  setup() {
+    let follower = ref([]);
+
+    onMounted(()=>{
+      axios.get('/follower.json').then((a)=>{
+      follower.value = a.data
+    })
+    })
+
+    
+
+    return {follower}
+  },
 };
 </script>
 
