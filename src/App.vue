@@ -13,15 +13,15 @@
   <h4>내 나이는 {{ $store.state.age }}</h4>
   <button @click="$store.commit('changeName')">변경</button>
   <button @click="sumAge()">나이먹기</button> -->
-  <button @click="step = 3">팔로워보기</button>
+  <h4 @click="step = 3">팔로워보기</h4>
   <Container
     @write="wrote = $event"
     :photos="photos"
     :instarData="instarData"
     :step="step"
   />
-  <p>{{ $store.state.more }}</p>
-  <button @click="$store.dispatch('getData')">더보기</button>
+  <!-- <p>{{ $store.state.more }}</p>
+  <button @click="$store.dispatch('getData')">더보기</button> -->
 
   <!-- <p>{{ now() }}</p>
   <button @click="counter++">현재시각</button> -->
